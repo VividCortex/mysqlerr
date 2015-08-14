@@ -3,7 +3,7 @@ mysqlerr
 
 MySQL Server Error Constants
 
-Covers up to MySQL 5.7.8. Notice that some constants where renamed in later
+Covers up to MySQL 5.7.8. Notice that some constants were renamed in later
 versions of MySQL, because they became obsolete. (In case you wonder: the names
 here match the symbols MySQL uses in source code.) Obsolete names haven't been
 changed in this package to avoid breaking code, but you should no longer be
