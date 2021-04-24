@@ -1,0 +1,47 @@
+name: build
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - .github/**
+      - .gitignore
+      - .whitesource
+      - codecov.yml
+      - README.md
+  pull_request:
+    paths-ignore:
+      - .github/**
+      - .gitignore
+      - .whitesource
+      - codecov.yml
+      - README.md
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - go: 1.15
+            build-with: true
+          - go: 1.16
+            build-with: false
+    continue-on-error: ${{ matrix.build-with == false }}
+    name: Build with ${{ matrix.go }}
+    env:
+      GO111MODULE: on
+
+    steps:
+    - name: Set up Go
+      uses: actions/setup-go@v1
+      with:
+        go-version: ${{ matrix.go }}
+
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Vet
+      run: go vet ./...
